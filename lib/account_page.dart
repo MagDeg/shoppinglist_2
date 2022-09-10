@@ -22,7 +22,7 @@ class _AccountPageState extends State<AccountPage> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+                colors: <Color>[Colors.indigo, Colors.indigoAccent],
               ),
             ),
           ),
@@ -44,6 +44,7 @@ class _AccountPageState extends State<AccountPage> {
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
+                    primary: Colors.indigo
                   ),
                   icon: const Icon(Icons.arrow_back, size: 32),
                   label: const Text(

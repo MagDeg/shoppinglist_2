@@ -57,7 +57,7 @@ class _CreateNewListScreenState extends State<CreateNewListScreen> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+              colors: <Color>[Colors.indigo, Colors.indigoAccent],
             ),
           ),
         ),
@@ -91,6 +91,7 @@ class _CreateNewListScreenState extends State<CreateNewListScreen> {
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size.fromHeight(40),
+                    primary: Colors.indigo
                 ),
                 child: Text('Auf diese Liste zugreifen'),
                 onPressed: () {

@@ -36,3 +36,9 @@ String item = '';
 
 //Barcode Scanner
 String scanResultGlobal = '0';
+
+//Barcode Database
+String bcName = '';
+String bcProd = '';
+String bcDesc = '';
+bool bcOn = false;

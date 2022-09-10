@@ -29,7 +29,7 @@ class _ToDoBuilderState extends State<ToDoBuilder> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+              colors: <Color>[Colors.indigo, Colors.indigoAccent],
             ),
           ),
         ),

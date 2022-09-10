@@ -5,6 +5,7 @@ import 'package:shopping_list_2/give_feedback/screen_give_feedback.dart';
 import 'package:shopping_list_2/show_changes.dart';
 import 'package:shopping_list_2/variables.dart';
 import 'account_page.dart';
+import 'administration/administration_auth.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _SettingScreenState extends State<SettingScreen> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+              colors: <Color>[Colors.indigo, Colors.indigoAccent],
             ),
           ),
         ),
@@ -47,7 +48,7 @@ class _SettingScreenState extends State<SettingScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
-              onDoubleTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AdminMainPage())),
+              onDoubleTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AdminAuth())),
               child: Container(
                   child: Text(
                 'created by Magnus Degwerth, $version',

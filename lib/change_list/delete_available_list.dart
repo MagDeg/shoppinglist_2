@@ -98,7 +98,7 @@ class _DeleteListState extends State<DeleteList> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+              colors: <Color>[Colors.indigo, Colors.indigoAccent],
             ),
           ),
         ),
@@ -132,7 +132,7 @@ class _DeleteListState extends State<DeleteList> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: Size.fromHeight(40),
-                primary: Colors.red,
+                primary: Colors.indigo,
               ),
               child: Text('Liste löschen'),
               onPressed: () {

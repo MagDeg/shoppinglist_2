@@ -15,8 +15,9 @@ class _AddTileState extends State<AddTile> {
   @override
   Widget build(BuildContext context) {
     CollectionReference shoppinglist = FirebaseFirestore.instance.collection(path);
-
-
+    if(bcOn == true) {
+      textController.text = bcName + ' ' + bcProd + ' ' + bcDesc;
+    }
     return AlertDialog(
       backgroundColor: Colors.black38,
       content: Form(
@@ -317,6 +318,12 @@ class _AddTileState extends State<AddTile> {
                 amountType = '';
                 textController.clear();
                 textAmount.clear();
+                bcOn = false;
+                amountControl = false;
+                amountTypeG = false;
+                amountTypeMl = false;
+                amountTypeSt = false;
+
                 Navigator.pop(context);
               },
               child: Text(

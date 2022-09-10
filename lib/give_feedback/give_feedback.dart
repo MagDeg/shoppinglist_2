@@ -19,7 +19,7 @@ class _GiveFeedbackPageState extends State<GiveFeedbackPage> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+              colors: <Color>[Colors.indigo, Colors.indigoAccent],
             ),
           ),
         ),

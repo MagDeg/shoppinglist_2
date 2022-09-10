@@ -61,7 +61,7 @@ class _AccessListState extends State<AccessList> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[Colors.blueAccent, Colors.lightBlue],
+              colors: <Color>[Colors.indigo, Colors.indigoAccent],
             ),
           ),
         ),
@@ -95,6 +95,7 @@ class _AccessListState extends State<AccessList> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: Size.fromHeight(40),
+                  primary: Colors.indigo
               ),
               child: Text('Auf Liste zugreifen'),
               onPressed: () {

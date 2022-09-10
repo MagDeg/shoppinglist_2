@@ -21,7 +21,11 @@ class _ScreenListSelectionState extends State<ScreenListSelection> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: Colors.lightBlue),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[Colors.indigo, Colors.indigoAccent],
+          )),
           child: Column(
             children: [
               Container(

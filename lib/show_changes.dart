@@ -45,7 +45,11 @@ class _ShowChangesState extends State<ShowChanges> {
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: Colors.lightBlue),
+             gradient: LinearGradient(
+               begin: Alignment.topCenter,
+               end: Alignment.bottomCenter,
+               colors: <Color>[Colors.indigo, Colors.indigoAccent],
+             )),
           height: 200.0,
           child: Align(
             alignment: Alignment.centerLeft,
