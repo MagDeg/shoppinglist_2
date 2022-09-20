@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'variables.dart';
 import 'language.dart';
 
+const List<String> list = <String>['x', 'g', 'ml'];
+
 class AddTile extends StatefulWidget {
   @override
   _AddTileState createState() => _AddTileState();
@@ -15,6 +17,8 @@ class _AddTileState extends State<AddTile> {
   @override
   Widget build(BuildContext context) {
     CollectionReference shoppinglist = FirebaseFirestore.instance.collection(path);
+
+
     if(bcOn == true) {
       textController.text = bcName + ' ' + bcProd + ' ' + bcDesc;
     }
@@ -51,112 +55,120 @@ class _AddTileState extends State<AddTile> {
                 ),
               ),
             ),
+            // Row(
+            //   children: [
+            //     Checkbox(
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(2.0)),
+            //       side: MaterialStateBorderSide.resolveWith(
+            //           (states) => BorderSide(width: 1.0, color: Colors.grey)),
+            //       value: amountControl,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           amountControl = value!;
+            //         });
+            //       },
+            //     ),
+            //     Container(
+            //       child: Text(
+            //         'Mengenangabe (optional)',
+            //         style: TextStyle(color: Colors.white),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
             Row(
               children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0)),
-                  side: MaterialStateBorderSide.resolveWith(
-                      (states) => BorderSide(width: 1.0, color: Colors.grey)),
-                  value: amountControl,
-                  onChanged: (value) {
-                    setState(() {
-                      amountControl = value!;
-                    });
-                  },
-                ),
                 Container(
-                  child: Text(
-                    'Mengenangabe (optional)',
-                    style: TextStyle(color: Colors.white),
+                  width: 200,
+                  padding: EdgeInsets.all(4.0),
+                  color: Colors.transparent,
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: categoriesTypeAdd),
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20.0)),
+                          labelText: addAmount,
+                          labelStyle: TextStyle(
+                              color: Colors.white)),
+                      controller: textAmount,
+                    ),
                   ),
                 ),
+                DropdownButtonTypes(),
               ],
             ),
-            Container(
-              padding: EdgeInsets.all(4.0),
-              color: Colors.transparent,
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: amountControl ? categoriesTypeAdd : Colors.black38),
-                child: TextField(
-                  enabled: amountControl,
-                  style: TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(20.0)),
-                      labelText: addAmount,
-                      labelStyle: TextStyle(
-                          color: amountControl ? Colors.white : Colors.grey)),
-                  controller: textAmount,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: amountTypeG,
-                  onChanged: (value) {
-                    setState(() {
-                      if (amountTypeMl == false && amountTypeSt == false && amountControl == true) {
-                        amountTypeG = value!;
-                      }
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0)),
-                  side: MaterialStateBorderSide.resolveWith(
-                          (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
-                ),
-                Text(
-                  'g',
-                  style: TextStyle(
-                      color: amountControl ? Colors.white : Colors.grey),
-                ),
-                Checkbox(
-                  value: amountTypeMl,
-                  onChanged: (value) {
-                    setState(() {
-                      if (amountTypeG == false && amountTypeSt == false && amountControl == true) {
-                        amountTypeMl = value!;
-                      }
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0)),
-                  side: MaterialStateBorderSide.resolveWith(
-                          (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
-                ),
-                Text(
-                  'ml',
-                  style: TextStyle(
-                      color: amountControl ? Colors.white : Colors.grey),
-                ),
-                Checkbox(
-                  value: amountTypeSt,
-                  onChanged: (value) {
-                    setState(() {
-                      if (amountTypeG == false && amountTypeMl == false && amountControl == true) {
-                        amountTypeSt = value!;
-                      }
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0)),
-                  side: MaterialStateBorderSide.resolveWith(
-                          (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
-                ),
-                Text(
-                  'x',
-                  style: TextStyle(
-                      color: amountControl ? Colors.white : Colors.grey),
-                )
-              ],
-            ),
+
+
+            // Row(
+            //   children: [
+            //     Checkbox(
+            //       value: amountTypeG,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           if (amountTypeMl == false && amountTypeSt == false && amountControl == true) {
+            //             amountTypeG = value!;
+            //           }
+            //         });
+            //       },
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(2.0)),
+            //       side: MaterialStateBorderSide.resolveWith(
+            //               (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
+            //     ),
+            //     Text(
+            //       'g',
+            //       style: TextStyle(
+            //           color: amountControl ? Colors.white : Colors.grey),
+            //     ),
+            //     Checkbox(
+            //       value: amountTypeMl,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           if (amountTypeG == false && amountTypeSt == false && amountControl == true) {
+            //             amountTypeMl = value!;
+            //           }
+            //         });
+            //       },
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(2.0)),
+            //       side: MaterialStateBorderSide.resolveWith(
+            //               (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
+            //     ),
+            //     Text(
+            //       'ml',
+            //       style: TextStyle(
+            //           color: amountControl ? Colors.white : Colors.grey),
+            //     ),
+            //     Checkbox(
+            //       value: amountTypeSt,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           if (amountTypeG == false && amountTypeMl == false && amountControl == true) {
+            //             amountTypeSt = value!;
+            //           }
+            //         });
+            //       },
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(2.0)),
+            //       side: MaterialStateBorderSide.resolveWith(
+            //               (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
+            //     ),
+            //     Text(
+            //       'x',
+            //       style: TextStyle(
+            //           color: amountControl ? Colors.white : Colors.grey),
+            //     )
+            //   ],
+            // ),
             Container(
               child: Text(
                 'Kategorie (optional)',
@@ -286,28 +298,25 @@ class _AddTileState extends State<AddTile> {
               onPressed: () {
 
 
-                if (textAmount.text == '') {
-                  textAmount.text = '1';
+                if (textAmount.text.isEmpty) {
+                  amountControl = false;
+                  print(amountControl);
                 }
-                if (amountTypeMl == true) {
-                  amountType = 'ml';
-                }
-                if (amountTypeG == true) {
-                  amountType = 'g';
-                }
-                if (amountTypeSt == true) {
-                  amountType = 'x';
-                }
+                // if (amountTypeMl == true) {
+                //   amountType = 'ml';
+                // }
+                // if (amountTypeG == true) {
+                //   amountType = 'g';
+                // }
+                // if (amountTypeSt == true) {
+                //   amountType = 'x';
+                // }
 
                 shoppinglist.add({
                     'name': amountControl ? textAmount.text + amountType + ' ' + textController.text : textController.text,
                     'done': false,
                     'amount': textAmount.text,
                     'rawName': textController.text,
-                    'amountController': amountControl,
-                    'amountTypeMl': amountTypeMl,
-                    'amountTypeG': amountTypeG,
-                    'amountTypeSt': amountTypeSt,
                     'amountType': amountType,
                     'categoriesType': categories,
                   });
@@ -315,14 +324,12 @@ class _AddTileState extends State<AddTile> {
                 categories = 'lightBlue';
                 categoriesTypeAdd = Colors.lightBlue;
                 categoriesTypeFirebase = Colors.lightBlue;
-                amountType = '';
+                amountType = list.first;
                 textController.clear();
                 textAmount.clear();
                 bcOn = false;
-                amountControl = false;
-                amountTypeG = false;
-                amountTypeMl = false;
-                amountTypeSt = false;
+                // amountControl = false;
+
 
                 Navigator.pop(context);
               },
@@ -334,6 +341,38 @@ class _AddTileState extends State<AddTile> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class DropdownButtonTypes extends StatefulWidget {
+  const DropdownButtonTypes({Key? key}) : super(key: key);
+
+  @override
+  State<DropdownButtonTypes> createState() => _DropdownButtonTypesState();
+}
+
+class _DropdownButtonTypesState extends State<DropdownButtonTypes> {
+  String dropdownvalue = list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+        value: dropdownvalue,
+        onChanged: (String? value) {
+          setState(() {
+            dropdownvalue = value!;
+            amountType = dropdownvalue;
+            print(dropdownvalue);
+            // amountType = list[value];
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value));
+        }).toList()
     );
   }
 }

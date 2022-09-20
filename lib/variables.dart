@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-String version = 'v2.2.0.2';
+import 'add_list_tile.dart';
+
+//project version
+String version = '0.2.2';
 
 late String path = 'none';
 late String state;
@@ -16,15 +19,12 @@ late String pathPin = '0';
 late String pathName = 'none';
 
 
-bool amountControl = false;
+bool amountControl = true;
 
 String amountRefactor = '';
 String newAmount1 = '';
 
-bool amountTypeG = false;
-bool amountTypeMl = false;
-bool amountTypeSt = false;
-String amountType = '';
+String amountType = list.first;
 
 var categoriesType = Colors.lightBlue;
 var categoriesTypeAdd = Colors.lightBlue;

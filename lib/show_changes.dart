@@ -9,6 +9,11 @@ class ShowChanges extends StatefulWidget {
 class _ShowChangesState extends State<ShowChanges> {
 
   List <String> Changes = [
+    'Mengenangaben jetzt einfacher nutzbar',
+    'Löschen der Einträge durch Wischen vom linken zum rechten Rand',
+    'Fehlerbehebung bei Barcode Scanner'
+    'Überarbeitung des Designs',
+    'Hinzufügen von Produkten über Barcode möglich',
     'Fehlerbehebung bei Namenänderung und Farbkategorien',
     'Überarbeitung des Layouts für den Einstellungsbildschirm',
     'Listen sind jetzt direkt erstell- und löschbar',
@@ -22,18 +27,23 @@ class _ShowChangesState extends State<ShowChanges> {
     'Menge und/oder Produkt in Liste änderbar',
     'Listen mit PIN wechselbar'];
   List <String> Versions = [
-    '2.2.0.2',
-    '2.2.0.1',
-    '2.2.0',
-    '2.1.3',
-    '2.1.2',
-    '2.1.1',
-    '2.1.0',
-    '2.0.4',
-    '2.0.3',
-    '2.0.2',
-    '2.0.1',
-    '2.0.0'];
+    '0.2.2',
+    '0.2.1.3',
+    '0.2.1.2',
+    '0.2.1.1',
+    '0.2.1',
+    '0.2.0.2',
+    '0.2.0.1',
+    '0.2.0',
+    '0.1.3',
+    '0.1.2',
+    '0.1.1',
+    '0.1.0',
+    '0.0.4',
+    '0.0.3',
+    '0.0.2',
+    '0.0.1',
+    '0.0.0'];
 
   @override
   Widget build(BuildContext context) {

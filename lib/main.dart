@@ -34,35 +34,34 @@ Future<void> main() async {
 }
 
 class ShoppinglistApp extends StatefulWidget {
+
   Future<void> setPrefNew() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('pathPinString', pin);
     prefs.setString('pathNameString', name);
   }
 
+
   @override
-  ShoppinglistAppState createState() => ShoppinglistAppState();
+  _ShoppinglistAppState createState() => _ShoppinglistAppState();
 }
 
-class ShoppinglistAppState extends State<ShoppinglistApp> {
-  final textController = TextEditingController();
-  String scanResult = '0';
+class _ShoppinglistAppState extends State<ShoppinglistApp> {
 
-  void refresh() {
-      currentIndexOfShownPages = 0;
-      sleep(Duration(milliseconds: 2));
-      currentIndexOfShownPages = 1;
-  }
+  int currentIndexOfShownPages = 0;
 
   void loadingPageLoad() {
-      currentIndexOfShownPages = 1;
+    currentIndexOfShownPages = 1;
   }
 
   void loadingPageClose() {
-      currentIndexOfShownPages = 0;
+    currentIndexOfShownPages = 0;
   }
 
-  int currentIndexOfShownPages = 0;
+  final shownPages = [
+    ToDoBuilder(),
+    SettingScreen(),
+  ];
 
   Future<void> incrementStartup() async {
     String pinNow = await _getPinStringFromSharedPref();
@@ -76,6 +75,7 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
   }
 
   Future<String> _getPinStringFromSharedPref() async {
+
     final prefs = await SharedPreferences.getInstance();
     final startupString = prefs.getString('pathPinString');
     final startupNull = '0';
@@ -83,11 +83,11 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
     if (startupString == null) {
       return startupNull;
     }
-
     return startupString;
   }
 
   Future<String> _getNameStringFromSharedPref() async {
+
     final prefs1 = await SharedPreferences.getInstance();
     final startupString = prefs1.getString('pathNameString');
     final startupNull = 'none';
@@ -108,11 +108,6 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
     );
   }
 
-  final shownPages = [
-    ToDoBuilder(),
-    SettingScreen(),
-  ];
-
   Future<void> scanBarcode() async {
     String scanResult;
     try {
@@ -124,9 +119,7 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
     if (!mounted) return;
 
     setState(() {
-      // this.scanResult = scanResult;
       scanResultGlobal = scanResult;
-      print(scanResultGlobal);
       checkIfListExists();
     });
   }
@@ -137,20 +130,17 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
     final doc = await docRep.get();
 
     if(doc.exists) {
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeDbFound()));
       showDialog<AlertDialog>(
           context: context,
           builder: (BuildContext context) {
             return BarcodeDbFound();
           });
-      print('found');
-    } else {
+    } else if (scanResultGlobal != '-1') {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return BarcodeDbNotFound();
           });
-      print('not found');
     }
   }
 
@@ -183,42 +173,40 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
                     colors: <Color>[Colors.indigo, Colors.indigoAccent],
                   )
                 ),
-                child: NavigationBar(
-                  backgroundColor: Colors.transparent,
-                  selectedIndex: currentIndexOfShownPages,
-                  onDestinationSelected: (int newIndex) {
-                    setState(() {
-                      currentIndexOfShownPages = newIndex;
-                    });
-                  },
-                  destinations: [
-                    NavigationDestination(
-                        selectedIcon: Icon(
-                          Icons.shopping_cart,
-                          color: Colors.white,
-                        ),
-                        icon: Icon(
-                          Icons.shopping_cart_outlined,
-                          color: Colors.white,
-                        ),
-                        label: bottom1),
-                    NavigationDestination(
-                        selectedIcon: Icon(
-                          Icons.settings,
-                          color: Colors.white,
-                        ),
-                        icon: Icon(
-                          Icons.settings_outlined,
-                          color: Colors.white,
-                        ),
-                        label: bottom2),
+                  child: NavigationBar(
+                    backgroundColor: Colors.transparent,
+                    selectedIndex: currentIndexOfShownPages,
+                    onDestinationSelected: (int newIndex) {
+                      setState(() {
+                        currentIndexOfShownPages = newIndex;
+                      });
+                    },
+                    destinations: [
+                      NavigationDestination(
+                          selectedIcon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                          icon: Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.white,
+                          ),
+                          label: bottom1),
+                      NavigationDestination(
+                          selectedIcon: Icon(
+                            Icons.settings,
+                            color: Colors.white,
+                          ),
+                          icon: Icon(
+                            Icons.settings_outlined,
+                            color: Colors.white,
+                          ),
+                          label: bottom2),
                   ],
                 ),
               ),
-              floatingActionButton:
-                SpeedDial(
+              floatingActionButton: SpeedDial(
                   icon: Icons.add,
-                  // animatedIcon: AnimatedIcons.menu_close,
                   backgroundColor: Colors.indigo,
                   children: [
                     SpeedDialChild(
@@ -233,7 +221,6 @@ class ShoppinglistAppState extends State<ShoppinglistApp> {
                       backgroundColor: Colors.indigo,
                       onTap: () {
                         scanBarcode();
-
                       }
 
                     )

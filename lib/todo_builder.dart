@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:shopping_list_2/add_list_tile.dart';
 import 'package:shopping_list_2/variables.dart';
 import 'account_page.dart';
+
 
 class ToDoBuilder extends StatefulWidget {
   @override
@@ -69,105 +72,104 @@ class _ToDoBuilderState extends State<ToDoBuilder> {
                           borderRadius: BorderRadius.circular(10.0),
                           color: categoriesTypeFirebase,
                         ),
-                        child: ListTile(
-                          leading: Checkbox(
-                            value: done,
-                            onChanged: (done) {
-                              shoppinglist.reference.update({'done': notdone});
-                            },
-                            activeColor: Colors.grey,
+                        child: Slidable(
+                          key: ValueKey(0),
+                          startActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                  onPressed: (BuildContext context) => shoppinglist.reference.delete(),
+                                  backgroundColor: Color(0xFFFE4A49),
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.delete,
+                                  label: 'Löschen',
+                              )
+                            ],
                           ),
-                          title: Text(
-                            shoppinglist['name'],
-                            style: TextStyle(
-                                color: done ? Colors.black45 : Colors.white,
-                                fontSize: 20.0,
-                                decoration: done
-                                    ? TextDecoration.lineThrough
-                                    : TextDecoration.none),
-                          ),
+                          child: ListTile(
+                            leading: Checkbox(
+                              value: done,
+                              onChanged: (done) {
+                                shoppinglist.reference.update({'done': notdone});
+                              },
+                              activeColor: Colors.grey,
+                            ),
+                            title: Text(
+                              shoppinglist['name'],
+                              style: TextStyle(
+                                  color: done ? Colors.black45 : Colors.white,
+                                  fontSize: 20.0,
+                                  decoration: done
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none),
+                            ),
 
-                          // trailing: IconButton(
-                          //   icon: Icon(
-                          //     Icons.delete,
-                          //     size: 30.0,
-                          //   ),
-                          //   onPressed: () => shoppinglist.reference.delete(),
-                          // ),
-                          onLongPress: () => shoppinglist.reference.delete(),
-                          onTap: () {
-                            showDialog<AlertDialog>(
-                                context: context,
-                                builder: (BuildContext context) {
+                            onLongPress: () {
+                              showDialog<AlertDialog>(
+                                  context: context,
+                                  builder: (BuildContext context) {
 
-                                  final amountController =
-                                      TextEditingController();
+                                    final amountController = TextEditingController();
 
-                                  rawName = shoppinglist['rawName'];
-                                  amountRefactor = shoppinglist['amount'];
-                                  amountControl = shoppinglist['amountController'];
+                                    rawName = shoppinglist['rawName'];
+                                    amountRefactor = shoppinglist['amount'];
+                                    amountType = shoppinglist['amountType'];
 
-                                  amountTypeG = shoppinglist['amountTypeG'];
-                                  amountTypeMl = shoppinglist['amountTypeMl'];
-                                  amountTypeSt = shoppinglist['amountTypeSt'];
+                                    // String item = '';
+                                    String newAmount = '';
 
-                                  // String item = '';
-                                  String newAmount = '';
-
-                                  categories = shoppinglist['categoriesType'];
-                                  categoryType();
+                                    categories = shoppinglist['categoriesType'];
+                                    categoryType();
+                                    print(categoriesType);
 
 
-                                  return AlertDialog(
-                                    backgroundColor: Colors.black38,
-                                    content: Form(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          ChangeTile(),
-                                          OutlinedButton(
-                                            style: OutlinedButton.styleFrom(
-                                                side: BorderSide(
-                                                    width: 2,
-                                                    color: Colors.blueAccent)),
-                                            onPressed: () {
-                                              newAmount = newAmount1;
+                                    return AlertDialog(
+                                      backgroundColor: Colors.black38,
+                                      content: Form(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ChangeTile(),
+                                            OutlinedButton(
+                                              style: OutlinedButton.styleFrom(
+                                                  side: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.blueAccent)),
+                                              onPressed: () {
+                                                newAmount = newAmount1;
 
-                                              if (item.isEmpty) {item = shoppinglist['rawName'];}
-                                              if (newAmount.isEmpty) {newAmount = shoppinglist['amount'];}
-                                              shoppinglist.reference.update({'name': amountControl ? newAmount + amountType + ' ' + item : item});
-                                              shoppinglist.reference.update({'amount': newAmount});
-                                              shoppinglist.reference.update({'rawName': item});
-                                              shoppinglist.reference.update({'amountController': amountControl});
-                                              shoppinglist.reference.update({'amountTypeG': amountTypeG});
-                                              shoppinglist.reference.update({'amountTypeMl': amountTypeMl});
-                                              shoppinglist.reference.update({'amountTypeSt': amountTypeSt});
-                                              shoppinglist.reference.update({'amountType': amountType});
-                                              shoppinglist.reference.update({'categoriesType': categories});
+                                                if (item.isEmpty) {item = shoppinglist['rawName'];}
+                                                if (newAmount.isEmpty) {newAmount = shoppinglist['amount'];}
+                                                shoppinglist.reference.update({'name': amountControl ? newAmount + amountType + ' ' + item : item});
+                                                shoppinglist.reference.update({'amount': newAmount});
+                                                shoppinglist.reference.update({'rawName': item});
+                                                shoppinglist.reference.update({'amountType': amountType});
+                                                shoppinglist.reference.update({'categoriesType': categories});
 
-                                              ChangeTile().textController1.clear();
-                                              amountController.clear();
-                                              amountType = '';
-                                              categories = 'lightBlue';
-                                              item = '';
-                                              categoriesTypeFirebase = Colors.lightBlue;
-                                              categoriesTypeAdd = Colors.lightBlue;
-                                              categoriesType = Colors.lightBlue;
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              'Fertig!',
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                                ChangeTile().textController1.clear();
+                                                amountController.clear();
+                                                amountType = list.first;
+                                                categories = 'lightBlue';
+                                                item = '';
+                                                categoriesTypeFirebase = Colors.lightBlue;
+                                                categoriesTypeAdd = Colors.lightBlue;
+                                                categoriesType = Colors.lightBlue;
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'Fertig!',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
+                                    );
+                                  }
                                   );
-                                }
-                                );
-                          },
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -197,34 +199,15 @@ class _AmountControllerRefactorState extends State<AmountControllerRefactor> {
     return Column(
       children: [
         Row(children: [
-          Checkbox(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0)),
-            side: MaterialStateBorderSide.resolveWith(
-                    (states) => BorderSide(width: 1.0, color: Colors.grey)),
-            value: amountControl,
-            onChanged: (value) {
-              setState(() {
-                amountControl = value!;
-              });
-            },
-          ),
-          Container(
-            child: Text(
-              'Mengenangabe (optional)',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ]),
         Container(
+          width: 200,
           padding: EdgeInsets.all(4.0),
           color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                color: amountControl ? categoriesType : Colors.black38),
+                color: categoriesTypeFirebase),
             child: TextField(
-              enabled: amountControl,
               style:
                   TextStyle(color: amountControl ? Colors.white : Colors.grey),
               cursorColor: Colors.white,
@@ -234,7 +217,7 @@ class _AmountControllerRefactorState extends State<AmountControllerRefactor> {
                       borderRadius: BorderRadius.circular(20.0)),
                   labelText: 'Neue Menge',
                   labelStyle: TextStyle(
-                      color: amountControl ? Colors.white : Colors.grey)),
+                      color: Colors.white)),
               onChanged: (String text) {
                 newAmount1 = text;
               },
@@ -242,76 +225,8 @@ class _AmountControllerRefactorState extends State<AmountControllerRefactor> {
             ),
           ),
         ),
-        Row(
-          children: [
-            Checkbox(
-              value: amountTypeG,
-              onChanged: (value) {
-                setState(
-                  () {
-                    if (amountTypeMl == false && amountTypeSt == false && amountControl == true) {
-                      amountTypeG = value!;
-                      amountType = 'g';
-                    }
-                  },
-                );
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0)),
-              side: MaterialStateBorderSide.resolveWith((states) => BorderSide(
-                  width: 1.0,
-                  color: amountControl ? Colors.grey : Colors.black)),
-            ),
-            Text(
-              'g',
-              style:
-                  TextStyle(color: amountControl ? Colors.white : Colors.grey),
-            ),
-            Checkbox(
-              value: amountTypeMl,
-              onChanged: (value) {
-                setState(() {
-                  if (amountTypeG == false && amountTypeSt == false && amountControl == true) {
-                    amountTypeMl = value!;
-                    amountType = 'ml';
-                  }
-                });
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0)),
-              side: MaterialStateBorderSide.resolveWith((states) => BorderSide(
-                  width: 1.0,
-                  color: amountControl ? Colors.grey : Colors.black)),
-            ),
-            Text(
-              'ml',
-              style:
-                  TextStyle(color: amountControl ? Colors.white : Colors.grey),
-            ),
-            Checkbox(
-              value: amountTypeSt,
-              onChanged: (value) {
-                setState(() {
-                  if (amountTypeG == false && amountTypeMl == false && amountControl == true) {
-                    amountTypeSt = value!;
-                    amountType = 'x';
-                  }
-                });
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0)),
-              side: MaterialStateBorderSide.resolveWith((states) => BorderSide(
-                  width: 1.0,
-                  color: amountControl ? Colors.grey : Colors.black)),
-            ),
-            Text(
-              'x',
-              style:
-                  TextStyle(color: amountControl ? Colors.white : Colors.grey),
-            )
-          ],
-        ),
-      ],
+        DropdownButtonTypesBuilder(),
+        ]),]
     );
   }
 }
@@ -487,7 +402,6 @@ class _ChangeTileState extends State<ChangeTile> {
                 },
                 child: Container(),
               ),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.brown, maximumSize: Size(30.0,30.0), minimumSize: Size(30.0, 30.0)),
                 onPressed: () { setState(() {
@@ -498,7 +412,6 @@ class _ChangeTileState extends State<ChangeTile> {
                 },
                 child: Container(),
               ),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.deepOrange, maximumSize: Size(30.0,30.0), minimumSize: Size(30.0, 30.0)),
                 onPressed: () { setState(() {
@@ -509,7 +422,6 @@ class _ChangeTileState extends State<ChangeTile> {
                 },
                 child: Container(),
               ),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.indigo, maximumSize: Size(30.0,30.0), minimumSize: Size(30.0, 30.0)),
                 onPressed: () { setState(() {
@@ -519,12 +431,40 @@ class _ChangeTileState extends State<ChangeTile> {
                 },
                 child: Container(),
               ),
-
-
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class DropdownButtonTypesBuilder extends StatefulWidget {
+  const DropdownButtonTypesBuilder({Key? key}) : super(key: key);
+
+  @override
+  State<DropdownButtonTypesBuilder> createState() => _DropdownButtonTypesBuilderState();
+}
+
+class _DropdownButtonTypesBuilderState extends State<DropdownButtonTypesBuilder> {
+  String dropdownvalue = amountType;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+        value: dropdownvalue,
+        onChanged: (String? value) {
+          setState(() {
+            dropdownvalue = value!;
+            amountType = dropdownvalue;
+            print(dropdownvalue);
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value));
+        }).toList()
     );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list_2/administration/admnistration_main.dart';
 import 'package:shopping_list_2/change_list/screen_list_selection.dart';
 import 'package:shopping_list_2/give_feedback/screen_give_feedback.dart';
+import 'package:shopping_list_2/info_setting_screen.dart';
 import 'package:shopping_list_2/show_changes.dart';
-import 'package:shopping_list_2/variables.dart';
 import 'account_page.dart';
 import 'administration/administration_auth.dart';
 
@@ -43,6 +42,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ScreenListSelection(),
               FeedbackSettingScreen(),
               ShowChanges(),
+              InfoSettingScreen(),
             ],
           ),
           Align(
@@ -51,7 +51,7 @@ class _SettingScreenState extends State<SettingScreen> {
               onDoubleTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AdminAuth())),
               child: Container(
                   child: Text(
-                'created by Magnus Degwerth, $version',
+                'created by Magnus Degwerth',
                 style: TextStyle(color: Colors.black45),
               ),
 
