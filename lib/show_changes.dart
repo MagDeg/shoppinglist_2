@@ -9,6 +9,8 @@ class ShowChanges extends StatefulWidget {
 class _ShowChangesState extends State<ShowChanges> {
 
   List <String> Changes = [
+    'Grafikfehler bei Hell-/Dunkemodeus behoben'
+    'Fehlerbehebung bei Mengenangaben',
     'Mengenangaben jetzt einfacher nutzbar',
     'Löschen der Einträge durch Wischen vom linken zum rechten Rand',
     'Fehlerbehebung bei Barcode Scanner'
@@ -27,6 +29,8 @@ class _ShowChangesState extends State<ShowChanges> {
     'Menge und/oder Produkt in Liste änderbar',
     'Listen mit PIN wechselbar'];
   List <String> Versions = [
+    '1.0.0'
+    '0.2.3',
     '0.2.2',
     '0.2.1.3',
     '0.2.1.2',
@@ -68,7 +72,7 @@ class _ShowChangesState extends State<ShowChanges> {
                     Align(
                       child: Container(
                         padding: EdgeInsets.all(10.0),
-                        child: Text('Was ist Neu?', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),),
+                        child: Text('Was ist Neu?', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600, color: Colors.white),),
                       )),
                     Align(
                     child: Container(

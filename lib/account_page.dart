@@ -31,12 +31,12 @@ class _AccountPageState extends State<AccountPage> {
           padding: const EdgeInsets.all(32),
           child: Column(
             children: [
-              const Text('Angemeldet als', style: TextStyle(fontSize: 16)),
+              Text('Angemeldet als', style: TextStyle(fontSize: 16, color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black)),
               const SizedBox(height: 8),
               Text(
                 user.email!,
                 style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color:  Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),
               ),
               const SizedBox(
                 height: 40,

@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,6 @@ import 'package:shopping_list_2/todo_builder.dart';
 import 'package:shopping_list_2/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'add_list_tile.dart';
-import 'language.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -26,12 +26,20 @@ Future<void> main() async {
       themeMode: ThemeMode.system,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.lightBlue,
+        textTheme: TextTheme(
+          headline1: TextStyle(color: Colors.white),
+          headline2: TextStyle(color: Colors.white),
+          bodyText2: TextStyle(color: Colors.white),
+          // subtitle1: TextStyle(color: Colors.white),
+          overline: TextStyle(color: Colors.white),
+        ),
       ),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      darkTheme: ThemeData(brightness: Brightness.dark, inputDecorationTheme: InputDecorationTheme(labelStyle: TextStyle(color: Colors.white))),
+
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: MessageError.messengerKey));
 }
+
 
 class ShoppinglistApp extends StatefulWidget {
 
@@ -40,7 +48,6 @@ class ShoppinglistApp extends StatefulWidget {
     prefs.setString('pathPinString', pin);
     prefs.setString('pathNameString', name);
   }
-
 
   @override
   _ShoppinglistAppState createState() => _ShoppinglistAppState();
@@ -153,6 +160,10 @@ class _ShoppinglistAppState extends State<ShoppinglistApp> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    if (user != null) {
+      print("ID: " + user.uid);
+    }} );
     return Scaffold(
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -175,6 +186,7 @@ class _ShoppinglistAppState extends State<ShoppinglistApp> {
                 ),
                   child: NavigationBar(
                     backgroundColor: Colors.transparent,
+
                     selectedIndex: currentIndexOfShownPages,
                     onDestinationSelected: (int newIndex) {
                       setState(() {
@@ -191,7 +203,10 @@ class _ShoppinglistAppState extends State<ShoppinglistApp> {
                             Icons.shopping_cart_outlined,
                             color: Colors.white,
                           ),
-                          label: bottom1),
+                          label:'Einkaufsliste',
+
+
+                      ),
                       NavigationDestination(
                           selectedIcon: Icon(
                             Icons.settings,
@@ -201,23 +216,26 @@ class _ShoppinglistAppState extends State<ShoppinglistApp> {
                             Icons.settings_outlined,
                             color: Colors.white,
                           ),
-                          label: bottom2),
+                          label:'Einstellungen'),
                   ],
                 ),
               ),
               floatingActionButton: SpeedDial(
                   icon: Icons.add,
-                  backgroundColor: Colors.indigo,
+                  iconTheme: IconThemeData(color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),
+                  backgroundColor: Colors.indigoAccent,
                   children: [
                     SpeedDialChild(
                       child: Icon(Icons.edit, color: Colors.white),
                       label: 'Manuel',
+                      labelStyle: TextStyle(color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),
                       onTap: () => newProductEntry(),
                       backgroundColor: Colors.indigo
                     ),
                     SpeedDialChild(
                       child: Icon(Icons.qr_code_scanner, color: Colors.white),
                       label: 'Scannen',
+                      labelStyle: TextStyle(color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),
                       backgroundColor: Colors.indigo,
                       onTap: () {
                         scanBarcode();

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/scheduler.dart';
 import 'variables.dart';
 import 'language.dart';
 
 const List<String> list = <String>['x', 'g', 'ml'];
+
+bool isDarkMode = true;
+
+
+
+
 
 class AddTile extends StatefulWidget {
   @override
@@ -15,15 +22,21 @@ class _AddTileState extends State<AddTile> {
   final textAmount = TextEditingController();
 
   @override
+
+
   Widget build(BuildContext context) {
     CollectionReference shoppinglist = FirebaseFirestore.instance.collection(path);
 
+    setState(() {
+      var brightness = SchedulerBinding.instance.window.platformBrightness;
+      isDarkMode = brightness == Brightness.dark;
+    });
 
     if(bcOn == true) {
       textController.text = bcName + ' ' + bcProd + ' ' + bcDesc;
     }
     return AlertDialog(
-      backgroundColor: Colors.black38,
+      backgroundColor: isDarkMode ? Colors.black38 : Colors.white38,
       content: Form(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -55,28 +68,7 @@ class _AddTileState extends State<AddTile> {
                 ),
               ),
             ),
-            // Row(
-            //   children: [
-            //     Checkbox(
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(2.0)),
-            //       side: MaterialStateBorderSide.resolveWith(
-            //           (states) => BorderSide(width: 1.0, color: Colors.grey)),
-            //       value: amountControl,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           amountControl = value!;
-            //         });
-            //       },
-            //     ),
-            //     Container(
-            //       child: Text(
-            //         'Mengenangabe (optional)',
-            //         style: TextStyle(color: Colors.white),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+
 
             Row(
               children: [
@@ -106,69 +98,6 @@ class _AddTileState extends State<AddTile> {
                 DropdownButtonTypes(),
               ],
             ),
-
-
-            // Row(
-            //   children: [
-            //     Checkbox(
-            //       value: amountTypeG,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           if (amountTypeMl == false && amountTypeSt == false && amountControl == true) {
-            //             amountTypeG = value!;
-            //           }
-            //         });
-            //       },
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(2.0)),
-            //       side: MaterialStateBorderSide.resolveWith(
-            //               (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
-            //     ),
-            //     Text(
-            //       'g',
-            //       style: TextStyle(
-            //           color: amountControl ? Colors.white : Colors.grey),
-            //     ),
-            //     Checkbox(
-            //       value: amountTypeMl,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           if (amountTypeG == false && amountTypeSt == false && amountControl == true) {
-            //             amountTypeMl = value!;
-            //           }
-            //         });
-            //       },
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(2.0)),
-            //       side: MaterialStateBorderSide.resolveWith(
-            //               (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
-            //     ),
-            //     Text(
-            //       'ml',
-            //       style: TextStyle(
-            //           color: amountControl ? Colors.white : Colors.grey),
-            //     ),
-            //     Checkbox(
-            //       value: amountTypeSt,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           if (amountTypeG == false && amountTypeMl == false && amountControl == true) {
-            //             amountTypeSt = value!;
-            //           }
-            //         });
-            //       },
-            //       shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(2.0)),
-            //       side: MaterialStateBorderSide.resolveWith(
-            //               (states) => BorderSide(width: 1.0, color: amountControl ? Colors.grey : Colors.black)),
-            //     ),
-            //     Text(
-            //       'x',
-            //       style: TextStyle(
-            //           color: amountControl ? Colors.white : Colors.grey),
-            //     )
-            //   ],
-            // ),
             Container(
               child: Text(
                 'Kategorie (optional)',
@@ -301,16 +230,9 @@ class _AddTileState extends State<AddTile> {
                 if (textAmount.text.isEmpty) {
                   amountControl = false;
                   print(amountControl);
+                } else {
+                  amountControl = true;
                 }
-                // if (amountTypeMl == true) {
-                //   amountType = 'ml';
-                // }
-                // if (amountTypeG == true) {
-                //   amountType = 'g';
-                // }
-                // if (amountTypeSt == true) {
-                //   amountType = 'x';
-                // }
 
                 shoppinglist.add({
                     'name': amountControl ? textAmount.text + amountType + ' ' + textController.text : textController.text,
@@ -328,7 +250,7 @@ class _AddTileState extends State<AddTile> {
                 textController.clear();
                 textAmount.clear();
                 bcOn = false;
-                // amountControl = false;
+                //amountControl = false;
 
 
                 Navigator.pop(context);
@@ -356,8 +278,12 @@ class DropdownButtonTypes extends StatefulWidget {
 class _DropdownButtonTypesState extends State<DropdownButtonTypes> {
   String dropdownvalue = list.first;
 
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return DropdownButton(
         value: dropdownvalue,
         onChanged: (String? value) {
@@ -365,13 +291,12 @@ class _DropdownButtonTypesState extends State<DropdownButtonTypes> {
             dropdownvalue = value!;
             amountType = dropdownvalue;
             print(dropdownvalue);
-            // amountType = list[value];
           });
         },
         items: list.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
               value: value,
-              child: Text(value));
+              child: Text(value, style: TextStyle(color: isDarkMode ?  Colors.white : Colors.black)));
         }).toList()
     );
   }

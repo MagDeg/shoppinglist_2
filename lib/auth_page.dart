@@ -66,7 +66,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             Center(
                 child: Text(
               'Bitte melde dich mit einem gültigem Zugang an, um die App nutzen zu können.',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15 ,color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black,),
             )),
             SizedBox(height: 40),
             TextFormField(

@@ -31,7 +31,7 @@ class _GiveFeedbackPageState extends State<GiveFeedbackPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(child: Text('Bitte schreiben sie hier nun ihr Feedback hin.')),
+                Center(child: Text('Bitte schreiben sie hier nun ihr Feedback hin.', style: TextStyle(color:  Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),)),
                 SizedBox(
                   height: 500.0,
                   child: Container(
@@ -50,7 +50,7 @@ class _GiveFeedbackPageState extends State<GiveFeedbackPage> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size.fromHeight(40),
-                    primary: Colors.lightBlue,
+                    primary: Colors.indigoAccent,
                   ),
                   child: Text('Feedback abschicken'),
                   onPressed: () {

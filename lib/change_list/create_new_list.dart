@@ -67,7 +67,7 @@ class _CreateNewListScreenState extends State<CreateNewListScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Bitte geben sie, zum erstellen einer neuen Liste, einen Namen und ein sechstelligen PIN an.'),
+            Text('Bitte geben sie, zum erstellen einer neuen Liste, einen Namen und ein sechstelligen PIN an.', style: TextStyle(color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),),
             SizedBox(height: 20),
             TextFormField(
               controller: nameController,

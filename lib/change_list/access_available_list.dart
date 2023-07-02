@@ -55,7 +55,7 @@ class _AccessListState extends State<AccessList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Auf bestehende Liste zugreifen'),
+        title: Text('Auf bestehende Liste zugreifen', style: TextStyle(color: Colors.white),),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -71,7 +71,7 @@ class _AccessListState extends State<AccessList> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Bitte geben sie, um auf eine bestehende Liste zugreifen zu können, den Namen und den sechstelligen PIN der Liste an.'),
+            Text('Bitte geben sie, um auf eine bestehende Liste zugreifen zu können, den Namen und den sechstelligen PIN der Liste an.', style: TextStyle(color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),),
             SizedBox(height: 20),
             TextFormField(
               controller: nameController,

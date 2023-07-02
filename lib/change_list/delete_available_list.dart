@@ -108,7 +108,7 @@ class _DeleteListState extends State<DeleteList> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Bitte geben sie, um eine bestehende Liste löschen zu können, den Namen und den sechstelligen PIN der Liste an.'),
+            Text('Bitte geben sie, um eine bestehende Liste löschen zu können, den Namen und den sechstelligen PIN der Liste an.', style: TextStyle(color: Theme.of(context).brightness! == Brightness.dark ? Colors.white : Colors.black),),
             SizedBox(height: 20),
             TextFormField(
               controller: nameController,
