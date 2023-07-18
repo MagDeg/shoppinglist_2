@@ -9,7 +9,8 @@ class ShowChanges extends StatefulWidget {
 class _ShowChangesState extends State<ShowChanges> {
 
   List <String> Changes = [
-    'Grafikfehler bei Hell-/Dunkemodeus behoben'
+    'Mengenangaben jetzt auch bei bestehenem Eintrag änderbar',
+    'Grafikfehler bei Hell-/Dunkemodeus behoben',
     'Fehlerbehebung bei Mengenangaben',
     'Mengenangaben jetzt einfacher nutzbar',
     'Löschen der Einträge durch Wischen vom linken zum rechten Rand',
@@ -29,7 +30,8 @@ class _ShowChangesState extends State<ShowChanges> {
     'Menge und/oder Produkt in Liste änderbar',
     'Listen mit PIN wechselbar'];
   List <String> Versions = [
-    '1.0.0'
+    '1.0.1',
+    '1.0.0',
     '0.2.3',
     '0.2.2',
     '0.2.1.3',

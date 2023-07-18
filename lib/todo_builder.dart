@@ -138,6 +138,13 @@ class _ToDoBuilderState extends State<ToDoBuilder> {
                                               onPressed: () {
                                                 newAmount = newAmount1;
 
+                                                if (newAmount1.isEmpty) {
+                                                  amountControl = false;
+                                                  print(amountControl);
+                                                } else {
+                                                  amountControl = true;
+                                                }
+
                                                 if (item.isEmpty) {item = shoppinglist['rawName'];}
                                                 if (newAmount.isEmpty) {newAmount = shoppinglist['amount'];}
                                                 shoppinglist.reference.update({'name': amountControl ? newAmount + amountType + ' ' + item : item});
@@ -209,7 +216,7 @@ class _AmountControllerRefactorState extends State<AmountControllerRefactor> {
                 color: categoriesTypeFirebase),
             child: TextField(
               style:
-                  TextStyle(color: amountControl ? Colors.white : Colors.grey),
+                  TextStyle(color: Colors.white),
               cursorColor: Colors.white,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -220,6 +227,7 @@ class _AmountControllerRefactorState extends State<AmountControllerRefactor> {
                       color: Colors.white)),
               onChanged: (String text) {
                 newAmount1 = text;
+
               },
               controller: amountController,
             ),
